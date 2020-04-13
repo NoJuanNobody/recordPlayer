@@ -22,7 +22,7 @@ const initialState = {
   speed: null,
   degrees: null,
 }
-export default function recordPlayer(state = initialState, action) {
+export default function recordPlayer(state=initialState, action) {
   const { type, payload } = action
   console.log(payload);
   switch (type) {

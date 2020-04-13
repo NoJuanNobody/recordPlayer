@@ -1,7 +1,7 @@
 export default () => ({
   root: {
-    margin:'20px',
-    height:'200px'
+    height:'100vh',
+    width:'100vw'
   },
   tray: {
     display: 'flex'

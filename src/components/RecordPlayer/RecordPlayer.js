@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import styles from './RecordPlayer.styles'
 import useRecordPlayer from './RecordPlayer.hook'
@@ -11,9 +12,14 @@ const useStyles = makeStyles(styles)
  * has album artwork in the middle
  */
 
-function RecordPlayer({song}) {
+function RecordPlayer({song, spinning=false}) {
   const { spinRecord, scratchRecord } = useRecordPlayer();
-  const { item, tray, root, record } = useStyles()
+  const { direction, speed } = useSelector(({recordPlayer})=>{
+    console.log(recordPlayer)
+    return recordPlayer
+  })
+  const { item,   tray, root, record } = useStyles()
+  console.log()
   const rotate = keyframes`
   from {
     transform: rotate(0deg);
@@ -29,11 +35,18 @@ function RecordPlayer({song}) {
 
   return (
     <div className={tray}>
-      <div className={item} >
-      <Rotate className={root}>
-      <img className={record} onClick={(e)=> spinRecord('CLOCKWISE', .5)} src={Record} />
-    </Rotate>
-      </div>
+      {direction === 'CLOCKWISE' && <div className={item} >
+        <Rotate className={root}>
+          <img className={record} onClick={(e)=> spinRecord('CLOCKWISE', .5)} src={Record} />
+        </Rotate>
+      </div>}
+      
+      {direction === null && <div className={item} >
+        <div className={root}>
+          <img className={record} onClick={(e)=> spinRecord('CLOCKWISE', .5)} src={Record} />
+        </div>
+      </div>}
+      
     </div>
     
   )
