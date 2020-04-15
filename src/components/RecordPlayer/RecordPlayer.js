@@ -5,7 +5,9 @@ import styles from './RecordPlayer.styles'
 import useRecordPlayer from './RecordPlayer.hook'
 import Record from './static/record.png'
 import { string } from 'prop-types'
+import Sound from 'react-sound'
 import styled, { keyframes } from 'styled-components'
+import soundfile from './static/clarkSisters-livingInVain.mp3'
 const useStyles = makeStyles(styles)
 /**
  * renders the spinning record component
@@ -15,9 +17,11 @@ const useStyles = makeStyles(styles)
 function RecordPlayer({song, spinning=false}) {
   const { spinRecord, scratchRecord } = useRecordPlayer();
   const { direction, speed } = useSelector(({recordPlayer})=>{
-    console.log(recordPlayer)
     return recordPlayer
   })
+  const playmusic = (direction, speed) => {
+    spinRecord('CLOCKWISE', .5)
+  }
   const { item,   tray, root, record } = useStyles()
   const rotateRecord = (direction,speed) =>{
     const sign = direction === 'CLOCKWISE' ? '+' : '-'
@@ -41,11 +45,12 @@ function RecordPlayer({song, spinning=false}) {
         <Rotate className={root}>
           <img className={record} onClick={(e)=> spinRecord('CLOCKWISE', .5)} src={Record} />
         </Rotate>
+        <Sound playStatus={Sound.status.PLAYING} url={soundfile}/>
       </div>}
       
       {direction === null && <div className={item} >
         <div className={root}>
-          <img className={record} onClick={(e)=> spinRecord('CLOCKWISE', .5)} src={Record} />
+          <img className={record} onClick={(e)=> playmusic()} src={Record} />
         </div>
       </div>}
       
