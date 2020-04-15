@@ -19,23 +19,25 @@ function RecordPlayer({song, spinning=false}) {
     return recordPlayer
   })
   const { item,   tray, root, record } = useStyles()
-  console.log()
-  const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
+  const rotateRecord = (direction,speed) =>{
+    const sign = direction === 'CLOCKWISE' ? '+' : '-'
+    return keyframes`
+    from {
+      transform: rotate(0deg);
+    }
+  
+    to {
+      transform: rotate(${sign}${speed*4000*360}deg);
+    }`
   }
-
-  to {
-    transform: rotate(${4000*360}deg);
-  }`
   const Rotate = styled.div`
-  animation: ${rotate} 400s ease-in-out infinite;
+  animation: ${rotateRecord(direction,speed)} 400s ease-in-out infinite;
   font-size: 1.2rem;
 `;
 
   return (
     <div className={tray}>
-      {direction === 'CLOCKWISE' && <div className={item} >
+      {(direction === 'CLOCKWISE' || direction === 'COUNTERCLOCKWISE') && <div className={item} >
         <Rotate className={root}>
           <img className={record} onClick={(e)=> spinRecord('CLOCKWISE', .5)} src={Record} />
         </Rotate>

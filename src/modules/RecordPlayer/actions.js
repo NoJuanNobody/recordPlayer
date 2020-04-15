@@ -1,4 +1,4 @@
-import { SPIN, SCRATCH } from './actionTypes'
+import { SPIN, STOP, SCRATCH } from './actionTypes'
 
 const COUNTERCLOCKWISE = 'COUNTERCLOCKWISE' 
 const CLOCKWISE = 'CLOCKWISE' 
@@ -14,6 +14,12 @@ export const spinRecord = (direction=CLOCKWISE,speed=0.5) => {
       speed,
       direction,
     }
+  }
+}
+
+export const stopRecord = () => {
+  return {
+    type: STOP,
   }
 }
 
