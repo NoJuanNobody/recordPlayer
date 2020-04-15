@@ -26,10 +26,10 @@ function RecordPlayer({song, spinning=false}) {
   }
 
   to {
-    transform: rotate(360deg);
+    transform: rotate(${4000*360}deg);
   }`
   const Rotate = styled.div`
-  animation: ${rotate} 2s linear infinite;
+  animation: ${rotate} 400s ease-in-out infinite;
   font-size: 1.2rem;
 `;
 
